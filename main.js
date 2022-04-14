@@ -95,6 +95,11 @@ window.addEventListener('load', () => {
 
             task_delete_el.addEventListener("click", () => {
                 list_el.removeChild(task_el);
+                todo_list = todo_list.filter(el => {
+                    return el.id != task_el.getAttribute("data-key");
+                });
+                addToLocalStorage("todos", todo_list);
+                renderList(todo_list);
             }); 
         });
     }
