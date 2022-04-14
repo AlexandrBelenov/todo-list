@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
     const input = document.querySelector("#new-task-input");
     const list_el = document.querySelector("#tasks");
     let todo_list = [];
-    getFromLocalStorage();
+    getFromStorage();
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -20,17 +20,17 @@ window.addEventListener('load', () => {
             name: item
         };
         todo_list.push(todo);
-        addToLocalStorage('todos',todo_list);
+        addToStorage('todos',todo_list);
         input.value = "";
     }
 
-    function addToLocalStorage(key, list) {
-        localStorage.setItem(key, JSON.stringify(list));
+    function addToStorage(key, list) {
+        sessionStorage.setItem(key, JSON.stringify(list));
         renderList(list);
     }
 
-    function getFromLocalStorage() {
-        const reference = localStorage.getItem('todos');
+    function getFromStorage() {
+        const reference = sessionStorage.getItem('todos');
         if (reference) {
             todo_list = JSON.parse(reference);
         }
@@ -88,7 +88,7 @@ window.addEventListener('load', () => {
                         }
                         return el;
                     });
-                    addToLocalStorage("todos", todo_list);
+                    addToStorage("todos", todo_list);
                     renderList(todo_list);
                 }
             });
@@ -98,7 +98,7 @@ window.addEventListener('load', () => {
                 todo_list = todo_list.filter(el => {
                     return el.id != task_el.getAttribute("data-key");
                 });
-                addToLocalStorage("todos", todo_list);
+                addToStorage("todos", todo_list);
                 renderList(todo_list);
             }); 
         });
